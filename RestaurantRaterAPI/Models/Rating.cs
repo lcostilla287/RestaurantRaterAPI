@@ -14,7 +14,7 @@ namespace RestaurantRaterAPI.Models
 
         [ForeignKey(nameof(Restaurant))]
         public int RestaurantId { get; set; }
-        //below connects references Restaurant object to the foreign key and acesses everything here
+        //below connects references Restaurant object to the foreign key and accesses everything here
         public virtual Restaurant Restaurant { get; set; }
 
         [Required]

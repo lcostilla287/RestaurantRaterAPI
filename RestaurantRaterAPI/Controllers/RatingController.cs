@@ -1,6 +1,7 @@
 ﻿using RestaurantRaterAPI.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -41,6 +42,24 @@ namespace RestaurantRaterAPI.Controllers
         //GetRatingById?
         
         //Get ratings by restaurant id
+        [HttpGet]
+        public async Task<IHttpActionResult> GetRatingByRestaurantId(Rating rating)
+        {
+            Restaurant restaurant = await _context.Restaurants.FindAsync(rating.RestaurantId);
+            foreach(Rating ratings in restaurant.Ratings)
+            {
+                if (ratings != null)
+                { 
+                return Ok(restaurant.Ratings);
+                }
+                else
+                {
+                    return BadRequest($"There are no ratings for {restaurant.Name}");
+                }
+            }
+
+            return InternalServerError();
+        }
 
 
         //Update Rating PUT
@@ -90,7 +109,8 @@ namespace RestaurantRaterAPI.Controllers
 
             return InternalServerError();
         }
-        
+        //Getallrecommendedrestaurants
+        //[Route] put this in restaurant controller
 
     }
 }
