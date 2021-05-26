@@ -40,7 +40,7 @@ namespace RestaurantRaterAPI.Controllers
         //GetAllRatings?
         //GetRatingById?
         
-        //Get rating by restaurant id
+        //Get ratings by restaurant id
 
 
         //Update Rating PUT
@@ -71,6 +71,25 @@ namespace RestaurantRaterAPI.Controllers
 
 
         //Delete Rating
+        [HttpDelete]
+        public async Task<IHttpActionResult> DeleteRating(int id)
+        {
+            Rating rating = await _context.Ratings.FindAsync(id);
+
+            if (rating == null)
+            {
+                return NotFound();
+            }
+
+            _context.Ratings.Remove(rating);
+
+            if (await _context.SaveChangesAsync() == 1)
+            {
+                return Ok("The rating was successfully deleted.");
+            }
+
+            return InternalServerError();
+        }
         
 
     }
