@@ -50,7 +50,7 @@ namespace RestaurantRaterAPI.Controllers
             {
                 if (ratings != null)
                 { 
-                return Ok(restaurant.Ratings);
+                return Ok(ratings.Restaurant);
                 }
                 else
                 {
@@ -109,8 +109,5 @@ namespace RestaurantRaterAPI.Controllers
 
             return InternalServerError();
         }
-        //Getallrecommendedrestaurants
-        //[Route] put this in restaurant controller
-
     }
 }

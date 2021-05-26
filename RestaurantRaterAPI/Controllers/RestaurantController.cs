@@ -22,7 +22,7 @@ namespace RestaurantRaterAPI.Controllers
             {
                 return BadRequest("Your request body can't be empty"); // this is an IHttpActionResult
             }
-            
+
             if (ModelState.IsValid)
             {
                 _context.Restaurants.Add(model);
@@ -40,6 +40,8 @@ namespace RestaurantRaterAPI.Controllers
             List<Restaurant> restaurants = await _context.Restaurants.ToListAsync();
             return Ok(restaurants);
         }
+
+
 
         //GetById
         [HttpGet]
@@ -94,6 +96,34 @@ namespace RestaurantRaterAPI.Controllers
             }
 
             return InternalServerError();
+        }
+        //Getallrecommendedrestaurants
+        [HttpGet]
+        //this affects the url
+        [Route("api/Restaurant/IsRecommended")]
+        public async Task<IHttpActionResult> GetRestaurantByIsRecommended()
+        {
+            // List<Restaurant> restaurants = await _context.Restaurants.ToListAsync();
+            //List<Restaurant> recommendedRestaurants = new List<Restaurant>();
+
+            //foreach (Restaurant restaurant in restaurants)
+            //{
+            // if (restaurant.IsRecommended)
+            //{
+            //take from the old and put in recommended
+            //no need to save the changes
+            // recommendedRestaurants.Add(restaurant);
+            // }
+            //  }
+            //if (restaurants.Count < 1)
+            //{
+            // return NotFound();
+            // }
+            //return Ok(recommendedRestaurants);
+
+            //can do it for names and other things too. Have to do this because it is readonly. other properties are fine so the middle ToList can be removed
+            List<Restaurant> restaurants = _context.Restaurants.ToList().Where(r => r.IsRecommended).ToList();
+            return Ok(restaurants);
         }
     }
 }
